@@ -33,9 +33,12 @@ namespace AudioConverter {
 
         public Form1() {
             InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            
+
             datasource.Add("MP3");
             datasource.Add("WAV");
             datasource.Add("UNSUPPORTED");
@@ -118,12 +121,11 @@ namespace AudioConverter {
                 }
             }
 
-            //save converted file to a specified folder
             //show link which will take you to the file
 
             //sourceFileName
 
-            lbl_warning.Text = "";
+            lbl_warning.Text = "File Created!";
             lbl_warning.ForeColor = Color.Black;
         }
 

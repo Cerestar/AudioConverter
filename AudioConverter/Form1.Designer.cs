@@ -148,9 +148,8 @@ namespace AudioConverter {
             this.lbl_warning.AutoSize = true;
             this.lbl_warning.Location = new System.Drawing.Point(12, 165);
             this.lbl_warning.Name = "lbl_warning";
-            this.lbl_warning.Size = new System.Drawing.Size(60, 13);
+            this.lbl_warning.Size = new System.Drawing.Size(0, 13);
             this.lbl_warning.TabIndex = 10;
-            this.lbl_warning.Text = "lbl_warning";
             // 
             // Form1
             // 
@@ -164,6 +163,7 @@ namespace AudioConverter {
             this.Controls.Add(this.lbl_inFile);
             this.Controls.Add(this.txt_inFile);
             this.Controls.Add(this.btn_chooseFile);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
             this.Text = "Audio Converter";
             this.Load += new System.EventHandler(this.Form1_Load);
