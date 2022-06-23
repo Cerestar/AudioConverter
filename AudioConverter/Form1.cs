@@ -37,16 +37,18 @@ namespace AudioConverter {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            
-
             datasource.Add("MP3");
             datasource.Add("WAV");
             datasource.Add("UNSUPPORTED");
 
             combo_outFileType.DataSource = datasource.Take(datasource.Count - 1).ToArray();
 
+            lbl_destFolder.Text = outDir;
+
             Console.WriteLine(Assembly.GetEntryAssembly().Location);
             Console.WriteLine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+
+
         }
 
         private void ChooseFileButton_Click(object sender, EventArgs e) {
@@ -107,21 +109,25 @@ namespace AudioConverter {
 
             string outTypeText = combo_outFileType.SelectedItem.ToString();
             AudioFileType outType = GetAudioFileType(outTypeText);
+            bool result;
 
             //convert based on file type
             if (sourceFileType == AudioFileType.MP3) {
                 if (outType == AudioFileType.WAV) {
-                    ConvertMp3toWav(sourceFileName);
+                    result = ConvertMp3toWav(sourceFileName);
+                    if (result == false) return;
                 }
             }
 
             if (sourceFileType == AudioFileType.WAV) {
                 if (outType == AudioFileType.MP3) {
-                    ConvertWavtoMp3(sourceFileName);
+                    result = ConvertWavtoMp3(sourceFileName);
+                    if (result == false) return;
                 }
             }
 
             //show link which will take you to the file
+            System.Diagnostics.Process.Start(outDir);
 
             //sourceFileName
 
@@ -129,7 +135,7 @@ namespace AudioConverter {
             lbl_warning.ForeColor = Color.Black;
         }
 
-        private void ConvertMp3toWav(string inPath) {
+        private bool ConvertMp3toWav(string inPath) {
             try {
                 using (Mp3FileReader mp3 = new Mp3FileReader(inPath)) {
                     using (WaveStream wavStream = WaveFormatConversionStream.CreatePcmStream(mp3)) {
@@ -142,20 +148,23 @@ namespace AudioConverter {
 
                         lbl_warning.Text = "Processing...";
                         lbl_warning.ForeColor = Color.Black;
-
                     }
                 }
+                return true;
             } catch (UnauthorizedAccessException ex) {
                 lbl_warning.Text = "Output location requires elevated access.";
                 lbl_warning.ForeColor = Color.Red;
                 Console.WriteLine(ex.Message);
 
             } catch (Exception ex) {
+                lbl_warning.Text = "There Was a problem creating the File";
+                lbl_warning.ForeColor = Color.Red;
                 Console.WriteLine(ex.Message);
-            } 
+            }
+            return false;
         }
 
-        private void ConvertWavtoMp3(string inPath) {
+        private bool ConvertWavtoMp3(string inPath) {
             try {
                 using (WaveFileReader wfr = new WaveFileReader(inPath)) {
 
@@ -170,19 +179,38 @@ namespace AudioConverter {
 
                     lameMp3.Dispose();
                 }
+                return true;
             } catch (UnauthorizedAccessException ex) {
                 lbl_warning.Text = "Output location requires elevated access.";
                 lbl_warning.ForeColor = Color.Red;
                 Console.WriteLine(ex.Message);
 
             } catch (Exception ex) {
+                lbl_warning.Text = "There Was a problem creating the File";
+                lbl_warning.ForeColor = Color.Red;
                 Console.WriteLine(ex.Message);
             }
+            return false;
         }
 
-        //not used
-        private void SetOutputFolder() { 
+        private void btn_chooseOutputFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            DialogResult result = folderBrowserDialog.ShowDialog();
 
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    outDir = folderBrowserDialog.SelectedPath;
+                    lbl_destFolder.Text = folderBrowserDialog.SelectedPath;
+
+                }
+                catch (Exception ex)
+                {
+                    txt_inFile.Text = "No Folder Selected";
+                }
+            }
         }
     }
 }

@@ -35,6 +35,8 @@ namespace AudioConverter {
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbl_info = new System.Windows.Forms.Label();
             this.lbl_warning = new System.Windows.Forms.Label();
+            this.btn_chooseOutputFolder = new System.Windows.Forms.Button();
+            this.lbl_destFolder = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,9 +141,9 @@ namespace AudioConverter {
             this.lbl_info.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_info.Location = new System.Drawing.Point(9, 271);
             this.lbl_info.Name = "lbl_info";
-            this.lbl_info.Size = new System.Drawing.Size(311, 13);
+            this.lbl_info.Size = new System.Drawing.Size(16, 13);
             this.lbl_info.TabIndex = 9;
-            this.lbl_info.Text = "The output file will appear in the same location as the source file.";
+            this.lbl_info.Text = "---";
             // 
             // lbl_warning
             // 
@@ -151,11 +153,33 @@ namespace AudioConverter {
             this.lbl_warning.Size = new System.Drawing.Size(0, 13);
             this.lbl_warning.TabIndex = 10;
             // 
+            // btn_chooseOutputFolder
+            // 
+            this.btn_chooseOutputFolder.Location = new System.Drawing.Point(471, 101);
+            this.btn_chooseOutputFolder.Name = "btn_chooseOutputFolder";
+            this.btn_chooseOutputFolder.Size = new System.Drawing.Size(154, 23);
+            this.btn_chooseOutputFolder.TabIndex = 11;
+            this.btn_chooseOutputFolder.Text = "Choose Output Folder";
+            this.btn_chooseOutputFolder.UseVisualStyleBackColor = true;
+            this.btn_chooseOutputFolder.Click += new System.EventHandler(this.btn_chooseOutputFolder_Click);
+            // 
+            // lbl_destFolder
+            // 
+            this.lbl_destFolder.AutoSize = true;
+            this.lbl_destFolder.Location = new System.Drawing.Point(471, 131);
+            this.lbl_destFolder.MaximumSize = new System.Drawing.Size(154, 0);
+            this.lbl_destFolder.Name = "lbl_destFolder";
+            this.lbl_destFolder.Size = new System.Drawing.Size(16, 13);
+            this.lbl_destFolder.TabIndex = 12;
+            this.lbl_destFolder.Text = "...";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 293);
+            this.Controls.Add(this.lbl_destFolder);
+            this.Controls.Add(this.btn_chooseOutputFolder);
             this.Controls.Add(this.lbl_warning);
             this.Controls.Add(this.lbl_info);
             this.Controls.Add(this.panel1);
@@ -187,6 +211,8 @@ namespace AudioConverter {
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbl_info;
         private System.Windows.Forms.Label lbl_warning;
+        private System.Windows.Forms.Button btn_chooseOutputFolder;
+        private System.Windows.Forms.Label lbl_destFolder;
     }
 }
 
